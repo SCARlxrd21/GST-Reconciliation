@@ -1,4 +1,4 @@
-# scar
+# GST RECONCILIATION
 The first is a minor python project involving the process of gst reconciliation.
 
 It majorly involved reading data from excel, manipulating it and writing it into excel.
