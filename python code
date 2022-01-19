@@ -1,0 +1,200 @@
+import xlrd
+path="Data.xlsx"
+inputworkbook=xlrd.open_workbook(path)
+portal=inputworkbook.sheet_by_index(0)
+book=inputworkbook.sheet_by_index(1)
+
+import xlwt
+Workbook=xlwt.Workbook(encoding="utf-8")
+sheet1=Workbook.add_sheet('Sheet 1')
+print("THE COMMON DATA IN BOOKS AND PORTAL IS STORED IN SHEET 1 OF THE OUTPUT EXCEL FILE.")
+i=1
+y=0
+x=0
+a=0
+h=[]
+p=[]
+while i<book.nrows:
+ if str(book.cell_value(i,0))!="" and str(book.cell_value(i,2))!="":
+  h.append({"gst":str(book.cell_value(i,0)),"sup":str(book.cell_value(i,1)),"inv":str(book.cell_value(i,2)),"amt":int(book.cell_value(i,4))})
+ i=i+1
+i=1
+while i<portal.nrows:
+ if str(portal.cell_value(i,0))!="" and str(portal.cell_value(i,2))!="":
+  p.append({"gst":str(portal.cell_value(i,0)),"sup":str(portal.cell_value(i,1)),"inv":str(portal.cell_value(i,2)),"amt":int(portal.cell_value(i,4))})
+ i=i+1
+i=1
+sheet1.write(0,0,'GST NUMBER')
+sheet1.write(0,1,'SUPPLIER NAME')
+sheet1.write(0,2,'INVOICE NUMBER')
+sheet1.write(0,3,'AMOUNT')
+def fun(x1,x2):
+ if x1-x2<10 or x1-x2==10 or x2-x1<10 or x2-x1==10:
+    return 1
+ else:
+    return 0
+while x<len(h):
+                   while y<len(p):
+                                        if h[x]["gst"]==p[y]["gst"] and h[x]["inv"]==p[y]["inv"] and fun(h[x]["amt"],p[y]["amt"])==1:
+                                           a=a+1
+                                           break
+                                        else:
+                                           y=y+1 			   
+                   if a==1:
+                               sheet1.write(i,0,h[x]["gst"])
+                               sheet1.write(i,1,h[x]["sup"])
+                               sheet1.write(i,2,h[x]["inv"])
+                               sheet1.write(i,3,h[x]["amt"])
+                               i=i+1
+                               a=0
+                             
+                   x=x+1
+                   y=0
+                           
+sheet2=Workbook.add_sheet('Sheet 2')
+print("THE UNIQUE DATA IN BOOK IS IS STORED IN SHEET 2 OF THE OUTPUT EXCEL FILE.")
+i=1
+y=0
+x=0
+a=0
+b=0
+d=0
+h=[]
+p=[]
+while i<book.nrows:
+ if str(book.cell_value(i,0))!="" and str(book.cell_value(i,2))!="":
+  h.append({"gst":str(book.cell_value(i,0)),"sup":str(book.cell_value(i,1)),"inv":str(book.cell_value(i,2)),"amt":int(book.cell_value(i,4))})
+ i=i+1
+i=1
+while i<portal.nrows:
+ if str(portal.cell_value(i,0))!="" and str(portal.cell_value(i,2))!="":
+  p.append({"gst":str(portal.cell_value(i,0)),"sup":str(portal.cell_value(i,1)),"inv":str(portal.cell_value(i,2)),"amt":int(portal.cell_value(i,4))})
+ i=i+1
+i=1
+def fun(x1,x2):
+ if x1-x2<10 or x1-x2==10 or x2-x1<10 or x2-x1==10:
+    return 1
+ else:
+    return 0
+sheet2.write(0,0,'GST NUMBER')
+sheet2.write(0,1,'SUPPLIER NAME')
+sheet2.write(0,2,'INVOICE NUMBER')
+sheet2.write(0,3,'AMOUNT')
+while x<len(h):
+                   while y<len(p):
+                                        if h[x]["gst"]==p[y]["gst"]:
+                                                                                           a=a+1
+                                        if h[x]["inv"]==p[y]["inv"]:
+                                                                                           b=b+1
+   
+                                        if fun(h[x]["amt"],p[y]["amt"])==1:
+                                                                                           d=d+1
+                                        if a+b+d==3:
+                                                                                           a=0
+                                                                                           b=0
+                                                                                           d=0
+                                                                                           y=0
+                                                                                           break
+                                                                                        
+ 
+                                        else:
+                                                                                           a=0
+                                                                                           b=0
+                                                                                           d=0
+                                                                                           y=y+1
+
+                   if y==len(p):
+                               sheet2.write(i,0,h[x]["gst"])
+                               sheet2.write(i,1,h[x]["sup"])
+                               sheet2.write(i,2,h[x]["inv"])
+                               sheet2.write(i,3,h[x]["amt"])
+                               i=i+1
+                               a=0
+                               b=0
+                               d=0
+                               y=0
+                             
+                   x=x+1
+                         
+sheet3=Workbook.add_sheet('Sheet 3')
+print("THE UNIQUE DATA IN PORTAL IS IS STORED IN SHEET 1 OF THE OUTPUT EXCEL FILE.")
+i=1
+y=0
+x=0
+a=0
+b=0
+d=0
+h=[]
+p=[]
+while i<book.nrows:
+ if str(book.cell_value(i,0))!="" and str(book.cell_value(i,2))!="": 
+  h.append({"gst":str(book.cell_value(i,0)),"sup":str(book.cell_value(i,1)),"inv":str(book.cell_value(i,2)),"amt":int(book.cell_value(i,4))})
+ i=i+1
+i=1
+while i<portal.nrows:
+ if str(portal.cell_value(i,0))!="" and str(portal.cell_value(i,2))!="":
+  p.append({"gst":str(portal.cell_value(i,0)),"sup":str(portal.cell_value(i,1)),"inv":str(portal.cell_value(i,2)),"amt":int(portal.cell_value(i,4))})
+ i=i+1
+i=1
+sheet3.write(0,0,'GST NUMBER')
+sheet3.write(0,1,'SUPPLIER NAME')
+sheet3.write(0,2,'INVOICE NUMBER')
+sheet3.write(0,3,'AMOUNT')
+def fun(x1,x2):
+ if x1-x2<10 or x1-x2==10 or x2-x1<10 or x2-x1==10:
+    return 1
+ else:
+    return 0
+while x<len(p):
+                   while y<len(h):
+                                        if p[x]["gst"]==h[y]["gst"]:
+                                                                                           a=a+1
+                                        if p[x]["inv"]==h[y]["inv"]:
+                                                                                           b=b+1
+   
+                                        if fun(p[x]["amt"],h[y]["amt"])==1:
+                                                                                           d=d+1
+                                        if a+b+d==3:
+                                                                                           a=0
+                                                                                           b=0
+                                                                                           d=0
+                                                                                           y=0
+                                                                                           break
+                                                                                        
+ 
+                                        else:
+                                                                                           a=0
+                                                                                           b=0
+                                                                                           d=0
+                                                                                           y=y+1
+
+                   if y==len(h):
+                               sheet3.write(i,0,p[x]["gst"])
+                               sheet3.write(i,1,p[x]["sup"])
+                               sheet3.write(i,2,p[x]["inv"])
+                               sheet3.write(i,3,p[x]["amt"])
+                               i=i+1
+                               a=0
+                               b=0
+                               d=0
+                               y=0
+                             
+                   x=x+1
+print("THE OUTPUT EXCEL FILE CONTAINING ALL THE RECONCILED DATA IS STORED IN D DRIVE.")                              
+Workbook.save("RECONCILED.xls")
+    
+  
+
+                                                      
+
+                                   
+    
+  
+
+                                                      
+
+                                  
+
+                                                      
+
+                                
